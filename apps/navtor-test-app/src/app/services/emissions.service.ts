@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class EmissionsService {
   httpClient = inject(HttpClient);
-  getVessels(): Observable<EmissionsInterface[]> {
+  getEmissions(): Observable<EmissionsInterface[]> {
     return this.httpClient.get<EmissionsInterface[]>(
       'https://frontendteamfiles.blob.core.windows.net/exercises/emissions.json',
     );
