@@ -11,6 +11,9 @@
     "@angular/forms": "~21.2.0",
     "@angular/platform-browser": "~21.2.0",
     "@angular/router": "~21.2.0",
+    "@ngrx/signals": "^21.1.0",
+    "ag-grid-angular": "^35.2.0",
+    "highcharts": "^12.5.0",
     "rxjs": "~7.8.0"
   },
   "devDependencies": {
@@ -31,6 +34,7 @@
     "@swc-node/register": "~1.11.1",
     "@swc/core": "~1.15.5",
     "@swc/helpers": "~0.5.18",
+    "@types/node": "20.19.9",
     "@typescript-eslint/utils": "^8.40.0",
     "angular-eslint": "^21.2.0",
     "eslint": "^9.8.0",
