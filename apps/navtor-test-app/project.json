@@ -14,7 +14,8 @@
         "index": "apps/navtor-test-app/src/index.html",
         "main": "apps/navtor-test-app/src/main.ts",
         "tsConfig": "apps/navtor-test-app/tsconfig.app.json",
-        "inlineStyleLanguage": "scss",
+        "webpackConfig": "apps/navtor-test-app/webpack.config.app.json",
+        "inlineStyleLanguage": "css",
         "assets": [
           {
             "glob": "**/*",

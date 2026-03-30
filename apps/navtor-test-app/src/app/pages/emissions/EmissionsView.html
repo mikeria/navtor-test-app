@@ -1,0 +1,15 @@
+<p>Emissions</p>
+<div class="card flex justify-center">
+  <p-select
+    [options]="selectProvider()"
+    [(ngModel)]="selectedVessel"
+    optionLabel="name"
+    placeholder="Select a Vessel"
+    class="w-full md:w-56"
+  />
+</div>
+<highcharts-chart
+  [constructorType]="chartConstructor"
+  [options]="chartOptions"
+  class="chart"
+/>

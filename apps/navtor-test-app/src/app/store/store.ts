@@ -1,6 +1,7 @@
 import {
   patchState,
   signalStore,
+  withComputed,
   withHooks,
   withMethods,
   withState,
@@ -9,9 +10,10 @@ import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import {
   EmissionsInterface,
   VesselInterface,
+  VesselRowData,
 } from '../models/navtor.interface';
 import { VesselService } from '../services/vessel.service';
-import { inject } from '@angular/core';
+import { computed, inject } from '@angular/core';
 import { pipe, switchMap, tap } from 'rxjs';
 import { EmissionsService } from '../services/emissions.service';
 
@@ -32,6 +34,20 @@ export const VesselsStore = signalStore(
     error: null,
     isLoading: false,
   }),
+  withComputed((store) => ({
+    gridRowData: computed(() =>
+      store.vessels().map((vessel) => {
+        const rowData: VesselRowData = {
+          name: vessel.name,
+          companyName: vessel.companyName,
+          mmsi: vessel.mmsi,
+          imo: vessel.imo,
+          vesselType: vessel.vesselType,
+        };
+        return rowData;
+      }),
+    ),
+  })),
   withMethods((store, vesselService = inject(VesselService)) => ({
     loadVessels: rxMethod<void>(
       pipe(
@@ -63,11 +79,16 @@ export const EmissionsStore = signalStore(
         switchMap(() => {
           return emissionsService.getEmissions().pipe(
             tap((emissions) => {
-              patchState(store, { emissions });
+              patchState(store, { emissions, isLoading: false });
             }),
           );
         }),
       ),
     ),
   })),
+  withHooks({
+    onInit(store) {
+      store.loadEmissions();
+    },
+  }),
 );
