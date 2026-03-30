@@ -95,7 +95,7 @@ export class EmissionsView implements OnInit {
         {
           name: 'Nox Emissions',
           data: this.store.nox_emissions(),
-          color: '#FFFF00',
+          color: '#46465c',
         },
       ],
     };

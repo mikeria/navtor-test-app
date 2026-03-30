@@ -1,8 +1,11 @@
-<p>Vessels</p>
-<ag-grid-angular id="myGrid"
-  class="ag-theme-quartz"
-  style="height: 500px"
-  [rowData]="store.gridRowData()"
-  [columnDefs]="colDefs"
-  [defaultColDef]="defaultColDef"
-/>
+<div class="card">
+  <h2>Vessels</h2>
+  <ag-grid-angular
+    id="myGrid"
+    class="ag-theme-quartz"
+    style="height: 500px"
+    [rowData]="store.gridRowData()"
+    [columnDefs]="colDefs"
+    [defaultColDef]="defaultColDef"
+  />
+</div>
