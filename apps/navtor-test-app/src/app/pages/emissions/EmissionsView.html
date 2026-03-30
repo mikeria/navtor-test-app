@@ -1,4 +1,4 @@
-<p>Emissions {{selectedVessel?.name}}</p>
+<p>Emissions </p>
 <div class="card flex justify-center">
   <p-select
     [options]="selectProvider()"
@@ -10,9 +10,11 @@
     class="w-full md:w-56"
   />
 </div>
+@if(selectedVessel){
 <highcharts-chart
   [constructorType]="chartConstructor"
   [options]="chartOptions"
   class="chart"
+  style="width: 700px; height: 400px; display: block;"
   
-/>
+/>}

@@ -41,6 +41,14 @@ export class EmissionsView implements OnInit {
         data: [1, 2, 3],
         type: 'line',
       },
+      {
+        data: [2, 2, 4],
+        type: 'line',
+      },
+      {
+        data: [2, 2, 4],
+        type: 'line',
+      },
     ],
   };
 
@@ -49,12 +57,45 @@ export class EmissionsView implements OnInit {
     this.sv.set(this.selectedVessel!.name);
     this.chartOptions = {
       title: {
-        text: this.sv(),
+        text: this.sv() + ' Emissions',
+      },
+      xAxis: {
+        labels: {
+          // format: '{value}%', // provides the same result as:
+          format:
+            new Date('{value}').getDate() +
+            ' ' +
+            (new Date('{value}').getMonth() + 1),
+          formatter: function () {
+            return new Date(this.value).toISOString();
+          },
+        },
+        title: {
+          text: 'Date',
+        },
+        tickInterval: 1,
+      },
+      yAxis: {
+        title: {
+          text: 'Values',
+        },
+        tickInterval: 1,
       },
       series: [
         {
-          data: [1, 2, 3],
-          type: 'line',
+          name: 'Ch4 Emissions',
+          data: this.store.ch4Series(),
+          color: '#00FF00',
+        },
+        {
+          name: 'Sox Emissions',
+          data: this.store.sox_emissions(),
+          color: '#FF00FF',
+        },
+        {
+          name: 'Nox Emissions',
+          data: this.store.nox_emissions(),
+          color: '#FFFF00',
         },
       ],
     };

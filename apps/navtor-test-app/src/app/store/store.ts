@@ -79,6 +79,42 @@ export const EmissionsStore = signalStore(
     availableVesselEmmisionsIds: computed(() =>
       store.emissions().map((e) => e.id),
     ),
+    ch4Series: computed(() => {
+      if (!store.selectedEmissions()) {
+        return [];
+      }
+      return store.selectedEmissions()!.timeSeries.map((e) => {
+        const date = new Date(e.report_to_utc);
+        return {
+          x: date,
+          y: e.ch4_emissions,
+        };
+      });
+    }),
+    sox_emissions: computed(() => {
+      if (!store.selectedEmissions()) {
+        return [];
+      }
+      return store.selectedEmissions()!.timeSeries.map((e) => {
+        const date = new Date(e.report_to_utc);
+        return {
+          x: date,
+          y: e.sox_emissions,
+        };
+      });
+    }),
+    nox_emissions: computed(() => {
+      if (!store.selectedEmissions()) {
+        return [];
+      }
+      return store.selectedEmissions()!.timeSeries.map((e) => {
+        const date = new Date(e.report_to_utc);
+        return {
+          x: date,
+          y: e.nox_emissions,
+        };
+      });
+    }),
   })),
   withMethods((store, emissionsService = inject(EmissionsService)) => ({
     updateSelectedEmissions(id: number) {
