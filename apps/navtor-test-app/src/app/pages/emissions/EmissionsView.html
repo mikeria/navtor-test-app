@@ -1,8 +1,10 @@
-<p>Emissions</p>
+<p>Emissions {{selectedVessel?.name}}</p>
 <div class="card flex justify-center">
   <p-select
     [options]="selectProvider()"
     [(ngModel)]="selectedVessel"
+    [loading]="store.isLoading()"
+    (onChange)="changeHandler($event)"
     optionLabel="name"
     placeholder="Select a Vessel"
     class="w-full md:w-56"
@@ -12,4 +14,5 @@
   [constructorType]="chartConstructor"
   [options]="chartOptions"
   class="chart"
+  
 />

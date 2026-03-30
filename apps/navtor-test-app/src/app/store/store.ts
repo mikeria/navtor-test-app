@@ -26,6 +26,7 @@ export interface EmissionsStateInterface {
   emissions: EmissionsInterface[];
   isLoading: boolean;
   error: string | null;
+  selectedEmissions: EmissionsInterface | null;
 }
 
 export const VesselsStore = signalStore(
@@ -70,16 +71,30 @@ export const VesselsStore = signalStore(
 export const EmissionsStore = signalStore(
   withState<EmissionsStateInterface>({
     emissions: [],
+    selectedEmissions: null,
     error: null,
     isLoading: false,
   }),
+  withComputed((store) => ({
+    availableVesselEmmisionsIds: computed(() =>
+      store.emissions().map((e) => e.id),
+    ),
+  })),
   withMethods((store, emissionsService = inject(EmissionsService)) => ({
+    updateSelectedEmissions(id: number) {
+      const updated = [...store.emissions().filter((e) => e.id === id)];
+      patchState(store, { selectedEmissions: updated[0] });
+    },
     loadEmissions: rxMethod<void>(
       pipe(
         switchMap(() => {
           return emissionsService.getEmissions().pipe(
             tap((emissions) => {
-              patchState(store, { emissions, isLoading: false });
+              patchState(store, {
+                emissions,
+                isLoading: false,
+                selectedEmissions: emissions.length ? emissions[0] : null,
+              });
             }),
           );
         }),
