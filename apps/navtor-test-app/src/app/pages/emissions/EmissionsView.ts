@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { EmissionsStore, VesselsStore } from '../../store/store';
 import { HighchartsChartComponent } from 'highcharts-angular';
 import Highcharts from 'highcharts';
@@ -6,6 +6,7 @@ import { ChartConstructorType } from 'highcharts-angular';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from 'primeng/select';
 import { VesselSelect } from '../../models/navtor.interface';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-emissions-view',
@@ -14,7 +15,7 @@ import { VesselSelect } from '../../models/navtor.interface';
   styleUrl: './EmissionsView.css',
   providers: [EmissionsStore, VesselsStore],
 })
-export class EmissionsView implements OnInit {
+export class EmissionsView {
   store = inject(EmissionsStore);
   vstore = inject(VesselsStore);
   chartConstructor: ChartConstructorType = 'chart';
@@ -61,13 +62,8 @@ export class EmissionsView implements OnInit {
       },
       xAxis: {
         labels: {
-          // format: '{value}%', // provides the same result as:
-          format:
-            new Date('{value}').getDate() +
-            ' ' +
-            (new Date('{value}').getMonth() + 1),
           formatter: function () {
-            return new Date(this.value).toISOString();
+            return formatDate(new Date(this.value), 'dd-MMM', 'en-US');
           },
         },
         title: {
@@ -100,5 +96,4 @@ export class EmissionsView implements OnInit {
       ],
     };
   }
-  ngOnInit() {}
 }
