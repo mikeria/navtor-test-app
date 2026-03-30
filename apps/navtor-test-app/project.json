@@ -7,19 +7,20 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/navtor-test-app",
         "index": "apps/navtor-test-app/src/index.html",
         "main": "apps/navtor-test-app/src/main.ts",
         "tsConfig": "apps/navtor-test-app/tsconfig.app.json",
-        "webpackConfig": "apps/navtor-test-app/webpack.config.app.json",
-        "inlineStyleLanguage": "css",
+        "webpackConfig": "apps/navtor-test-app/webpack.config.js",
+        "inlineStyleLanguage": "scss",
         "assets": [
           {
             "glob": "**/*",
-            "input": "apps/navtor-test-app/public"
+            "input": "apps/navtor-test-app/public",
+            "output": "."
           }
         ],
         "styles": ["apps/navtor-test-app/src/styles.scss"]
@@ -29,8 +30,8 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumWarning": "1mb",
+              "maximumError": "2mb"
             },
             {
               "type": "anyComponentStyle",
